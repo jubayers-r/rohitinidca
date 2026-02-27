@@ -13,6 +13,7 @@ const supabase = createClient(
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  // Default to +91
   const [phone, setPhone] = useState("");
   const [emailVerified, setEmailVerified] = useState(false);
   const [phoneVerified, setPhoneVerified] = useState(false);
@@ -27,9 +28,16 @@ export default function Home() {
   };
 
   const validatePhone = (value: string) => {
-    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
-    const isValid = phoneRegex.test(value);
-    setPhoneVerified(isValid && value.length > 12);
+    // 1. Strip everything except digits
+    const digits = value.replace(/\D/g, "");
+
+    // 2. For India (+91), the digits should be 12 (91 + 10 digits)
+    // 3. The 3rd digit (first digit of the actual number) must be 6-9
+    // Note: We also allow '1' if you want to support the new 1600 business series
+    const phoneRegex = /^91[6-9]\d{9}$/;
+
+    const isValid = phoneRegex.test(digits);
+    setPhoneVerified(isValid);
     return isValid;
   };
 
@@ -40,20 +48,38 @@ export default function Home() {
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPhone(value);
-    validatePhone(value);
+    const input = e.target.value;
+
+    // If user clears the input, let it be empty so placeholder shows
+    if (input.length === 0) {
+      setPhone("");
+      setPhoneVerified(false);
+      return;
+    }
+
+    // Clean the input (remove existing +91 and non-digits)
+    let numbersOnly = input.replace(/^\+91/, "").replace(/\D/g, "");
+
+    // Strip leading zero if they try to type 098...
+    if (numbersOnly.startsWith("0")) {
+      numbersOnly = numbersOnly.substring(1);
+    }
+
+    // Limit to 10 digits
+    const truncated = numbersOnly.slice(0, 10);
+
+    // Always prepend +91 for the actual state
+    const finalValue = "+91 " + truncated;
+
+    setPhone(finalValue);
+    validatePhone(finalValue);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!emailVerified || !phoneVerified) return;
+
     setMessage("");
-
-    if (!emailVerified) {
-      setMessage("Please enter a valid email address.");
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
@@ -62,7 +88,7 @@ export default function Home() {
         .insert([
           {
             email,
-            phone: phone || null,
+            phone,
             email_verified: emailVerified,
             phone_verified: phoneVerified,
           },
@@ -79,7 +105,7 @@ export default function Home() {
       } else {
         setMessage("Successfully joined the waitlist!");
         setEmail("");
-        setPhone("");
+        setPhone("+91");
         setEmailVerified(false);
         setPhoneVerified(false);
       }
@@ -127,7 +153,8 @@ export default function Home() {
           <div className="relative">
             <Input
               type="tel"
-              placeholder="Enter Phone number"
+              inputMode="tel"
+              placeholder="+91 98765 43210"
               value={phone}
               onChange={handlePhoneChange}
               className="w-full h-12 md:h-14 bg-[#e5e3df] border-0 rounded-lg px-4 text-base placeholder:text-gray-600 pr-32"
@@ -142,8 +169,9 @@ export default function Home() {
 
           <Button
             type="submit"
-            disabled={isSubmitting || !emailVerified}
-            className="w-full h-12 md:h-14 bg-[#d94444] hover:bg-[#c23838] text-white font-medium text-base rounded-lg transition-colors"
+            // Button disabled until both are verified
+            disabled={isSubmitting || !emailVerified || !phoneVerified}
+            className="w-full h-12 md:h-14 bg-[#d94444] hover:bg-[#c23838] disabled:opacity-70 disabled:cursor-not-allowed text-white font-medium text-base rounded-lg transition-colors"
           >
             {isSubmitting ? "Joining..." : "Join The Wait List"}
           </Button>
