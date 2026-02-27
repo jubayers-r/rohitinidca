@@ -87,13 +87,23 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f3f0] flex items-center justify-center p-4">
-      <div className="w-full max-w-lg">
-        <div className="text-center mb-8 md:mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
-            ICEpots<span className="text-xl">®</span>
-          </h1>
-          <p className="text-sm md:text-base tracking-wider">
+    <div className="min-h-screen bg-[#ffffff] flex items-center justify-center p-4">
+      <div className="w-full max-w-xl">
+        <div className="text-center mb-8 md:mb-12 flex flex-col items-center">
+          {/* 1. Added a relative container with a set height/width */}
+
+          <div className="flex justify-center mb-2 w-full">
+            <div className="w-3/4 md:w-4/5 lg:w-full">
+              <img
+                src="/logo.png"
+                alt="ICEPots Logo"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
+
+          {/* 2. Slogan stays below the logo container */}
+          <p className="text-sm font-bold md:text-xl tracking-wider">
             NOT FOR EVERYONE
           </p>
         </div>
@@ -106,7 +116,7 @@ export default function Home() {
           <div className="relative">
             <Input
               type="email"
-              placeholder="Enter your email"
+              placeholder="rahul07@gmail.com"
               value={email}
               onChange={handleEmailChange}
               className="w-full h-12 md:h-14 bg-[#e5e3df] border-0 rounded-lg px-4 text-base placeholder:text-gray-600 pr-32"
