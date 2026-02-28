@@ -99,7 +99,7 @@ export default function Home() {
           {/* 1. Added a relative container with a set height/width */}
 
           <div className="flex justify-center sm:mb-2 w-full">
-            <div className="w-5/6 md:w-4/5 lg:w-full">
+            <div className="w-5/6 md:w-3/5 ">
               <img
                 src="/logo.png"
                 alt="ICEPots Logo"
@@ -109,12 +109,12 @@ export default function Home() {
           </div>
 
           {/* 2. Slogan stays below the logo container */}
-          <p className="text-lg font-semibold sm:text-2xl md:text-4xl tracking-wider">
+          <p className="text-lg font-semibold sm:text-2xl md:text-3xl tracking-wider">
             NOT FOR EVERYONE
           </p>
         </div>
 
-        <h2 className="text-4xl md:text-7xl font-extrabold text-center my-20 md:my-28">
+        <h2 className="text-4xl md:text-7xl font-extrabold text-center my-20 md:my-20">
           COMING SOON
         </h2>
 
