@@ -1,11 +1,17 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CheckCircle2 } from "lucide-react";
+import { CheckmarkCircle02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 // 1. Import the Prisma v7 Server Action
+import { Poppins } from "next/font/google";
 import { joinWaitlist } from "./actions";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400"], // Add the weights you need here
+});
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -87,8 +93,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#ffffff] flex items-center justify-center p-4">
-      <div className="w-full max-w-xl">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-3xl">
         <div className="text-center mb-8 md:mb-12 flex flex-col items-center">
           {/* 1. Added a relative container with a set height/width */}
 
@@ -103,12 +109,12 @@ export default function Home() {
           </div>
 
           {/* 2. Slogan stays below the logo container */}
-          <p className="text-sm font-bold md:text-xl tracking-wider">
+          <p className="text-sm font-semibold md:text-4xl tracking-wider">
             NOT FOR EVERYONE
           </p>
         </div>
 
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-8 md:mb-12">
+        <h2 className="text-4xl md:text-7xl font-extrabold text-center mb-8 md:my-28">
           COMING SOON
         </h2>
 
@@ -116,33 +122,45 @@ export default function Home() {
           <div className="relative">
             <Input
               type="email"
-              placeholder="rahul07@gmail.com"
+              placeholder="Enter your email"
               value={email}
               onChange={handleEmailChange}
-              className="w-full h-12 md:h-14 bg-[#e5e3df] border-0 rounded-lg px-4 text-base placeholder:text-gray-600 pr-32"
+              className="w-full h-12 md:h-17 bg-[#e8e8e8] border-0 rounded-lg px-9 md:text-lg placeholder:text-gray-600 placeholder:text-lg  pr-32"
               required
             />
             {emailVerified && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 text-green-600">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="text-sm font-medium">Verified</span>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#00A63E] px-5">
+                <HugeiconsIcon
+                  height={32}
+                  width={32}
+                  icon={CheckmarkCircle02Icon}
+                />
+                <span className="text-sm md:text-xl font-medium">
+                  Email Verified
+                </span>
               </div>
             )}
           </div>
 
-          <div className="relative">
+          <div className="relative mb-14">
             <Input
               type="tel"
               inputMode="tel"
-              placeholder="+91 98765 43210"
+              placeholder="Enter your phone number"
               value={phone}
               onChange={handlePhoneChange}
-              className="w-full h-12 md:h-14 bg-[#e5e3df] border-0 rounded-lg px-4 text-base placeholder:text-gray-600 pr-32"
+              className="w-full h-12 md:h-17 bg-[#e8e8e8] border-0 rounded-lg px-9 md:text-lg placeholder:text-gray-600 placeholder:text-lg  pr-32"
             />
             {phoneVerified && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 text-green-600">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="text-sm font-medium">Verified</span>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#00A63E] px-5">
+                <HugeiconsIcon
+                  height={32}
+                  width={32}
+                  icon={CheckmarkCircle02Icon}
+                />
+                <span className="text-sm md:text-xl font-medium">
+                  Phone Verified
+                </span>
               </div>
             )}
           </div>
@@ -150,7 +168,7 @@ export default function Home() {
           <Button
             type="submit"
             disabled={isSubmitting || !emailVerified || !phoneVerified}
-            className="w-full h-12 md:h-14 bg-[#d94444] hover:bg-[#c23838] disabled:opacity-70 disabled:cursor-not-allowed text-white font-medium text-base rounded-lg transition-colors"
+            className={` ${poppins.className} w-full h-12 md:h-14 bg-[#D7373C] hover:bg-[#c23838] disabled:opacity-70 disabled:cursor-not-allowed text-white font-normal text-base  rounded-lg transition-colors`}
           >
             {isSubmitting ? "Joining..." : "Join The Wait List"}
           </Button>
@@ -168,7 +186,7 @@ export default function Home() {
           </div>
         )}
 
-        <p className="text-center text-gray-600 text-sm md:text-base">
+        <p className="text-center text-[#666668] text-sm md:text-2xl font-medium">
           We&apos;ll never share or sell your information.
         </p>
       </div>
