@@ -93,13 +93,13 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-start justify-center p-4 pt-20 md:items-center md:pt-4">
       <div className="w-full max-w-3xl">
         <div className="text-center mb-8 md:mb-12 flex flex-col items-center">
           {/* 1. Added a relative container with a set height/width */}
 
-          <div className="flex justify-center mb-2 w-full">
-            <div className="w-3/4 md:w-4/5 lg:w-full">
+          <div className="flex justify-center sm:mb-2 w-full">
+            <div className="w-5/6 md:w-4/5 lg:w-full">
               <img
                 src="/logo.png"
                 alt="ICEPots Logo"
@@ -109,12 +109,12 @@ export default function Home() {
           </div>
 
           {/* 2. Slogan stays below the logo container */}
-          <p className="text-sm font-semibold md:text-4xl tracking-wider">
+          <p className="text-lg font-semibold sm:text-2xl md:text-4xl tracking-wider">
             NOT FOR EVERYONE
           </p>
         </div>
 
-        <h2 className="text-4xl md:text-7xl font-extrabold text-center mb-8 md:my-28">
+        <h2 className="text-4xl md:text-7xl font-extrabold text-center my-30 md:my-28">
           COMING SOON
         </h2>
 
@@ -125,15 +125,14 @@ export default function Home() {
               placeholder="Enter your email"
               value={email}
               onChange={handleEmailChange}
-              className="w-full h-12 md:h-17 bg-[#e8e8e8] border-0 rounded-lg px-9 md:text-lg placeholder:text-gray-600 placeholder:text-lg  pr-32"
+              className="w-full h-12 md:h-17 bg-[#e8e8e8] border-0 rounded-lg px-6 md:px-9 text-sm md:text-lg placeholder:text-gray-600 placeholder:md:text-lg placeholder:text-sm  pr-32"
               required
             />
             {emailVerified && (
               <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#00A63E] px-5">
                 <HugeiconsIcon
-                  height={32}
-                  width={32}
                   icon={CheckmarkCircle02Icon}
+                  className="md:h-8 h-4 md:w-8 w-4"
                 />
                 <span className="text-sm md:text-xl font-medium">
                   Email Verified
@@ -142,21 +141,20 @@ export default function Home() {
             )}
           </div>
 
-          <div className="relative mb-14">
+          <div className="relative mb-8 md:mb-14">
             <Input
               type="tel"
               inputMode="tel"
               placeholder="Enter your phone number"
               value={phone}
               onChange={handlePhoneChange}
-              className="w-full h-12 md:h-17 bg-[#e8e8e8] border-0 rounded-lg px-9 md:text-lg placeholder:text-gray-600 placeholder:text-lg  pr-32"
+              className="w-full h-12 md:h-17 bg-[#e8e8e8] border-0 rounded-lg px-6 md:px-9 text-sm md:text-lg placeholder:text-gray-600 placeholder:md:text-lg placeholder:text-sm  pr-32"
             />
             {phoneVerified && (
               <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#00A63E] px-5">
                 <HugeiconsIcon
-                  height={32}
-                  width={32}
                   icon={CheckmarkCircle02Icon}
+                  className="md:h-8 h-4 md:w-8 w-4"
                 />
                 <span className="text-sm md:text-xl font-medium">
                   Phone Verified
@@ -168,7 +166,7 @@ export default function Home() {
           <Button
             type="submit"
             disabled={isSubmitting || !emailVerified || !phoneVerified}
-            className={` ${poppins.className} w-full h-12 md:h-14 bg-[#D7373C] hover:bg-[#c23838] disabled:opacity-70 disabled:cursor-not-allowed text-white font-normal text-base  rounded-lg transition-colors`}
+            className={` ${poppins.className} w-full h-16 md:h-14 bg-[#D7373C] hover:bg-[#c23838] disabled:opacity-70 disabled:cursor-not-allowed text-white font-normal text-base  rounded-lg transition-colors`}
           >
             {isSubmitting ? "Joining..." : "Join The Wait List"}
           </Button>
@@ -186,7 +184,7 @@ export default function Home() {
           </div>
         )}
 
-        <p className="text-center text-[#666668] text-sm md:text-2xl font-medium">
+        <p className="text-center text-[#666668] md:text-2xl font-medium">
           We&apos;ll never share or sell your information.
         </p>
       </div>
