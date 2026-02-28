@@ -93,7 +93,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-start justify-center p-4 pt-20 md:items-center md:pt-4">
+    <div className="min-h-screen flex items-start justify-center p-4 pt-10 md:items-center md:pt-4">
       <div className="w-full max-w-3xl">
         <div className="text-center mb-8 md:mb-12 flex flex-col items-center">
           {/* 1. Added a relative container with a set height/width */}
@@ -114,7 +114,7 @@ export default function Home() {
           </p>
         </div>
 
-        <h2 className="text-4xl md:text-7xl font-extrabold text-center my-30 md:my-28">
+        <h2 className="text-4xl md:text-7xl font-extrabold text-center my-20 md:my-28">
           COMING SOON
         </h2>
 
